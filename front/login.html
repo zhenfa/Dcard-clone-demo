@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dcard-clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="bg-[#00324e] h-screen">
+        <div class="bg-[#00324e] flex flex-col justify-center items-center ">
+            <!-- navbar -->
+            <header class="bg-[#006aa6] h-12 flex justify-center w-full">
+                <div class="flex max-w-screen-xl w-full justify-between px-4">
+                    <a class="py-2.5" href="#">
+                        <img src="./img/dcaed_logo.svg" alt="" class="h-full">
+                    </a>
+                    <ul class="flex">
+                        <li><a href="#" class="flex justify-center items-center h-full px-4 text-white font-semibold">About</a></li>
+                        <li><a href="#" class="flex justify-center items-center h-full px-4 text-white font-semibold">Skill</a></li>
+                        <li><a href="#" class="flex justify-center items-center h-full px-4 text-white font-semibold">Contact</a></li>
+                    </ul>
+                </div>
+                
+            </header>
+            <main class=" flex justify-center items-center max-w-[1120px]">
+                <!-- content -->
+                <div class="flex flex-col mr-[100px]">
+                    <div class="relative">
+                        <img class="h-[306px] w-[332px]" src="./img/qrcode-border.webp" alt="">
+                        <div class="absolute bottom-0 left-0 right-0">
+                            <img class="m-auto" src="./img/qrcide.webp" alt="">
+                            <h5 class="text-sm my-4 text-center">立即掃描下載 Dcard App !</h5>
+                        </div>
+                    </div>
+                    <h1 class="text-white text-center pt-[0.67em] text-3xl py-3">
+                        年輕人都在Dcard上討論
+                    </h1>
+                    <p class="text-center text-gray-400 text-2xl pb-5">
+                        不想錯過任何有趣話題嗎?<br>
+                        趕快加入我們吧！
+                    </p>
+                    <a href="#" class="text-blue-400 text-center hover:text-blue-300">先看討論區</a>
+                </div>
+                    
+                <!-- login form -->
+                <div class="min-w-screen-lg py-12">
+                    <div class="flex flex-row bg-white py-10 px-[60px] w-[522px] h-[764px] rounded-xl">
+                        <div class="flex flex-col w-full">
+                            <h2 class="text-center text-3xl mb-5">註冊 / 登入</h2>
+                            <div class="flex justify-between pb-1.5">
+                                <span class="text-[14px]">常用信箱</span>
+                                <a class="text-[#3397cf] text-[14px]" href="#">使用手機登入</a>
+                            </div>
+                            <input class="rounded-[10px] px-[14px] py-[10px] border-solid border-[#ddd] border-[0.8px] mb-5 outline-none" type="text" placeholder="輸入信箱"> 
+                            <span class="text-[14px] pb-1.5">密碼</span>
+                            <div class="flex justify-bwteen rounded-[10px] px-[14px] py-[10px] border-[0.8px] border-solid border-[#ddd] border-solid mb-5">
+                                <input class="flex-1 outline-none" placeholder="輸入密碼" type="password">
+                                <svg class="w-6 h-6 text-gray-300 dark:text-white hover:text-gray-200 cursor-pointer pl-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
+                                 <path d="M10 0C4.612 0 0 5.336 0 7c0 1.742 3.546 7 10 7 6.454 0 10-5.258 10-7 0-1.664-4.612-7-10-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/>
+                                </svg>
+                            </div>
+                            <button class="bg-[#3397cf] rounded-[10px] text-white px-4 py-[11px] hover:bg-[#5ab0db]" type="submit">註冊 / 登入</button> 
+                            <div class="flex justify-center py-4 px-2.5">
+                                <a class="text-[#3397cf] text-[14px]" href="#">幫助中心</a>．
+                                <a class="text-[#3397cf] text-[14px]" href="#">未收到驗證信</a>．
+                                <a class="text-[#3397cf] text-[14px]" href="#">忘記密碼</a>
+                            </div>
+                            <div class="flex justify-center items-center px-2 py-1.5">
+                                <span class="text-sm text-center text-gray-500">其他註冊 / 登入方式</span>
+                                <svg class="w-[12px] h-[12px] text-gray-500 dark:text-white ml-2 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 10">
+                                    <path d="M15.434 1.235A2 2 0 0 0 13.586 0H2.414A2 2 0 0 0 1 3.414L6.586 9a2 2 0 0 0 2.828 0L15 3.414a2 2 0 0 0 .434-2.179Z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1 flex flex-col">
+                                <button class="text-center p-1 border-solid border-[1px] boder-[#ddd] text-sm px-2 py-1.5 mt-2.5 mb-1 rounded">使用 Google 帳戶登入</button>
+                                <button class="text-center p-1 border-solid border-[1px] boder-[#ddd] text-sm px-2 py-1.5 mt-2.5 mb-1 rounded">使用 Facebook 帳戶登入</button>
+                                <button class="text-center p-1 border-solid border-[1px] boder-[#ddd] text-sm px-2 py-1.5 mt-2.5 mb-1 rounded">使用 Apple 登入</button>
+                            </div>
+                            
+                            
+                            <div class="inline text-center">
+                                <span class="text-sm text-gray-400">註冊/登入及代表您同意遵守<a href="#" class="text-sm underline"> Dcard使用協議</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
