@@ -3,23 +3,26 @@ var router = express.Router();
 var controller = require('../controllers/appController');
 
 /** GET METHOD */
+router.route('/test').get(controller.test);
 router.route('/login').get(controller.login);
-router.route('/posts/:index').get(controller.getPosts);
+// router.route('/classifications').get(controller.getClassifications);
+// router.route('/tags').get(controller.getTags);
+router.route('/posts').get(controller.getPosts);
 router.route('/post/:id').get(controller.getPost);
-router.route('/commemts/:id').get(controller.getComments);
+// router.route('/commemts/:id').get(controller.getComments);
 
-/** POST METHOD */
+// /** POST METHOD */
 router.route('/register').post(controller.register);
-router.route('/post').post(controller.createPost);
-router.route('/comment').post(controller.creatComment);
+// router.route('/post').post(controller.createPost);
+// router.route('/comment').post(controller.creatComment);
 
-/** PUT METHOD */
-router.route('/post/:id').put(controller.putPost);
-router.route('/comment/:id').put(controller.putComment);
+// /** PUT METHOD */
+// router.route('/post/:id').put(controller.putPost);
+// router.route('/comment/:id').put(controller.putComment);
 
-/** DELETE METHOD */
-router.route('/post/:id').delete(controller.deletePost);
-router.route('/comment/:id').delete(controller.deleteComment);
+// /** DELETE METHOD */
+// router.route('/post/:id').delete(controller.deletePost);
+// router.route('/comment/:id').delete(controller.deleteComment);
 
 
 module.exports = router;

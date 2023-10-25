@@ -8,6 +8,9 @@ var app = require('../app');
 var debug = require('debug')('backend:server');
 var http = require('http');
 
+/** 引用 dotenv 使用本地環境參數 */
+require('dotenv').config({path:`./.env.${process.env.NODE_ENV}`});
+
 /**
  * Get port from environment and store in Express.
  */
@@ -19,16 +22,33 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+/** 創建 mongoose */
+const mongoose = require('mongoose');
+/** 建立數據庫連接 */
+mongoose.connect(`mongodb://${process.env.HOST}:${process.env.MONGO_DB_PORT}/dcard-blog`);
+const db = mongoose.connection;
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+/** 資料庫連接事件 */
+db.on('open', ()=>{
+  console.log('mongodb connect success!');
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+  var server = http.createServer(app);
 
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', ()=>{
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
+    console.log(`server is running on port:${port}`)
+    debug('Listening on ' + bind);
+  });
+})
+
+db.on('error', (err)=>{
+  console.log(`mongodb connect fail, message:${err}`);
+})
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -75,17 +95,4 @@ function onError(error) {
     default:
       throw error;
   }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  console.log(`server is running on port:${port}`)
-  debug('Listening on ' + bind);
 }
