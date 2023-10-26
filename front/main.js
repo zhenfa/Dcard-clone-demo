@@ -1,41 +1,25 @@
-import hotClsData from './fake_data.json' assert { type: "json" };
-import postsData from './fake_posts_data.json' assert { type: "json" };
-
 (function(){
 
-    /**
-     * [ API ] 取得熱門看板資料
-     * @param {null} null 
-     * @returns { json } 熱門看板 json 資料
+    /** [ API ] 取得熱門看板資料
+     * 
+     * @returns { Array } 熱門看板資料列
      */
-    let getHotCls = () => {
+    let getHotClassification = async () => {
         try{
-            if( hotClsData.status === "200" && hotClsData.data != null )
-            {
-                let strHtml = "";
+            let response = await axios('http://localhost:3000/api/cls')
 
-                hotClsData.data.forEach( item => {
-                    strHtml += 
-                    `<a href="#" class="hover:bg-[#040D21]" id="${item.id}">
-                        <li class="">
-                            <div class="flex h-11 pl-5 pr-2 5 items-center">
-                                <img class="rounded-full w-[28px] h-[28px]" src="${item.img_url}" alt="">
-                                <h5 class="overflow-hidden text-base text-[#9FB2BC] ml-2.5 mr-2.5 whitespace-nowrap">${item.title}</h5>
-                            </div>
-                        </li>
-                    </a>`
-                });
-                
-                return strHtml;
-            }
+            return response.data.data;
+
         }catch(error){
-            return error;
+            let { status, data } = error.response;
+            /** TODO:lOG RECORD */
+            console.log(`[API fail-${status}]-${data.message}`);
+            return [];
         }        
-        
     }
 
-    /**
-     * [ API ]取得文章資料
+    /** [ API ]取得文章列表資料
+     * 
      * @param { number } [pageKey=""] - 上一筆最後一則文章的 key，default:""    
      * @returns { Array } 熱門看板 json 資料
      */
@@ -63,9 +47,9 @@ import postsData from './fake_posts_data.json' assert { type: "json" };
         }
     }
 
-    /**
-     * [ ACTION ] 創建 Post List，操作 DOM。
-     * @param { object } [jsonData={}] - Post List 數據
+    /** [ ACTION ] 創建 Post List，操作 DOM
+     * 
+     * @param { Array } [jsonData=[]] - Post模型數據陣列
      */
     let actionPostList = ( jsonData = [] ) => {
 
@@ -126,20 +110,58 @@ import postsData from './fake_posts_data.json' assert { type: "json" };
         }
     }
 
-    /**
-     * [ ACTION ]資料初始化
+    /** [ ACTION ] 創建 Hot Classification List，操作 DOM
+     * 
+     * @param { Array } [jsonData=[]] - Classification模型數據陣列
+     */
+    let actionHotClassication = (jsonData=[])=>{
+        if( jsonData.length === 0 )
+        {
+            // TODO: 返回沒有資料圖示
+            console.log("沒有更多資料了");
+            return;
+        }
+        try{
+            let strHtml = "";
+
+            /** 創建熱門分類列表 html */
+            jsonData.forEach( item => {
+                strHtml += 
+                `<a href="#" class="hover:bg-[#040D21]" id="${item.id}">
+                    <li class="">
+                        <div class="flex h-11 pl-5 pr-2 5 items-center">
+                            <img class="rounded-full w-[28px] h-[28px]" src="${item.img_url}" alt="">
+                            <h5 class="overflow-hidden text-base text-[#9FB2BC] ml-2.5 mr-2.5 whitespace-nowrap">${item.title}</h5>
+                        </div>
+                    </li>
+                </a>`
+            });
+
+            /** 操作 DOM */
+            document.getElementById("hot-cls-list").innerHTML = strHtml;
+
+        }catch(error){
+            /** TODO:lOG RECORD */
+            console.log(`[ACTION fail]-${error.message}`);
+        }
+    }
+
+    /** [ ACTION ]資料初始化
+     * 
      */
     let init = async () => {
 
         /** 清除先前狀態 */
         window.localStorage.clear();
 
-        let strHotCls = getHotCls();
+        /** 取得初始化資料 */
+        let strHotCls = await getHotClassification();
         let strPosts = await getPosts();
 
+        /** 操作所有區塊 DOM */
+        actionHotClassication(strHotCls);
         actionPostList(strPosts);
-
-        document.getElementById("hot-cls-list").innerHTML = strHotCls;    
+ 
     }
 
     init();
